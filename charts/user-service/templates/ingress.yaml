@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include user-service.fullname . }}
+  name: {{ include "user-service.fullname" . }}
   annotations:
     kubernetes.io/ingress.class: {{ .Values.ingress.ingressClassName }}
 spec:
@@ -20,7 +20,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ include user-service.fullname . }}
+                name: {{ include "user-service.fullname" . }}
                 port:
                   number: {{ .Values.service.port }}
 {{- end }}
