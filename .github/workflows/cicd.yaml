@@ -1,0 +1,38 @@
+# If running this locally to CREATE the workflow file, you need to escape the $ signs
+echo 'name: Build and push user-service
+on:
+  push:
+    paths:
+      - '\''services/user-service/**'\''
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Log in to GHCR
+        run: echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      
+      - name: Build image
+        run: |
+          IMAGE=ghcr.io/${{ github.repository_owner }}/user-service
+          TAG=${{ github.sha }}
+          docker build -t $IMAGE:$TAG ./services/user-service
+          docker push $IMAGE:$TAG
+      
+      - name: Install yq
+        run: |
+          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod a+x /usr/local/bin/yq
+      
+      - name: Update Helm values file
+        run: |
+          yq e -i .image.tag = "${{ github.sha }}" charts/user-service/values.yaml
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add charts/user-service/values.yaml
+          git commit -m image: user-service ${{ github.sha }} || echo no changes to commit
+          git push' > .github/workflows/cicd.yaml
