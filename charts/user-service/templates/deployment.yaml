@@ -15,7 +15,7 @@ spec:
         app: {{ include "user-service.name" . }}
     spec:
       imagePullSecrets:
-        - name: ghcr-secret
+        - name: {{ .Values.imagePullSecrets | default "ghcr-secret" }}
       containers:
         - name: {{ include "user-service.name" . }}
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
