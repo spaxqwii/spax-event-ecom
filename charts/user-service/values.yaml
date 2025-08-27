@@ -10,6 +10,16 @@ service:
   port: 80
   targetPort: 8080
 
+readinessProbe:
+  path: /
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+livenessProbe:
+  path: /
+  initialDelaySeconds: 15
+  periodSeconds: 20
+
 ingress:
   enabled: true
   ingressClassName: nginx
