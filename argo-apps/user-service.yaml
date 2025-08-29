@@ -9,7 +9,10 @@ spec:
     repoURL: 'https://github.com/spaxqwii/spax-event-ecom.git'
     targetRevision: master
     path: charts/user-service
-    helm: {}
+    helm: 
+      releaseName: user-service
+      valueFiles:
+        - values.yaml 
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: myapp

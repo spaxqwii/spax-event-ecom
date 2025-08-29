@@ -1,0 +1,18 @@
+event-ecom/
+├── services/
+│   ├── user-service/
+│   │   ├── src/
+│   │   │   ├── index.ts       # main entrypoint
+│   │   │   ├── routes.ts      # API routes
+│   │   │   └── db.ts          # Postgres connection
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   └── Dockerfile
+│   │
+│   ├── product-service/ (later)
+│   └── payment-service/ (later)
+│
+├── charts/ (Helm charts)
+├── k8s/    (infra: Postgres, monitoring, ingress)
+├── argo-apps/
+└── .github/workflows/
