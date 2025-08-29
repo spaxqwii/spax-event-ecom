@@ -26,4 +26,6 @@ spec:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
-
+          envFrom:
+            - secretRef:
+              name: user-db-secret
