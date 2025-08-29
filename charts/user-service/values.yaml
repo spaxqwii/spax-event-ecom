@@ -9,6 +9,11 @@ service:
   type: ClusterIP
   port: 80
   targetPort: 8080
+database:
+  host: postgres-postgresql.myapp.svc.cluster.local
+  port: 5432
+  name: users
+  secretName: user-db-secret
 
 readinessProbe:
   httpGet:
