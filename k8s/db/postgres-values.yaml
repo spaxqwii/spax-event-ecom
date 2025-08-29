@@ -1,0 +1,11 @@
+auth:
+  username: user
+  password: password   # will move this to SealedSecret soon
+  database: users
+
+primary:
+  persistence:
+    enabled: true
+    size: 1Gi
+    storageClass: standard
+
