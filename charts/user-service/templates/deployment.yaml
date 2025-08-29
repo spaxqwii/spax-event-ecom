@@ -35,12 +35,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.database.secretName }}
-                  key: DB_USER
+                  key: user
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.database.secretName }}
-                  key: DB_PASSWORD
+                  key: password
             - name: DB_NAME
               value: {{ .Values.database.name | quote }}
           envFrom:
