@@ -15,8 +15,8 @@ router.get("/users", async (_, res) => {
         res.json(result.rows);
     }
     catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "db error" });
+        console.error("DB error:", err); // <--- logs full error to pod logs
+        res.status(500).json({ error: err.message }); // <--- send actual error back
     }
 });
 // Add user
@@ -29,8 +29,8 @@ router.post("/users", async (req, res) => {
         res.status(201).json(result.rows[0]);
     }
     catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "db error" });
+        console.error("DB error:", err); // <--- logs full error to pod logs
+        res.status(500).json({ error: err.message }); // <--- send actual error back
     }
 });
 exports.default = router;

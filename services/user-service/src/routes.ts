@@ -12,8 +12,11 @@ router.get("/users", async (_: Request, res: Response) => {
     const result = await pool.query("SELECT id, email FROM users");
     res.json(result.rows);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "db error" });
+    console.error("DB ERROR:", err);
+    res.status(500).json({
+      error: "db error",
+      details: (err as Error).message
+    });
   }
 });
 
@@ -30,9 +33,9 @@ router.post("/users", async (req: Request, res: Response) => {
     res.status(201).json(result.rows[0]);
   } catch (err) {
     console.error("DB ERROR:", err);
-    res.status(500).json({ 
-      error: "db error", 
-      details: (err as Error).message 
+    res.status(500).json({
+      error: "db error",
+      details: (err as Error).message
     });
   }
 });
