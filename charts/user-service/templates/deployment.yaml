@@ -48,7 +48,6 @@ spec:
            #     secretKeyRef:
            #       name: {{ .Values.database.secretName }}
            #       key: DATABASE_URL
-          envFrom:
-            - secretRef:
-                name: {{ .Values.database.secretName }}
-          
+         # envFrom:
+        #  - secretRef:
+        #      name: {{ .Values.database.secretName }}
