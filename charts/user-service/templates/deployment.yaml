@@ -43,11 +43,11 @@ spec:
                   key: DB_PASSWORD
             - name: DB_NAME
               value: {{ .Values.database.name | quote }}
-            - name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.database.secretName }}
-                  key: DATABASE_URL
+           # - name: DATABASE_URL
+           #   valueFrom:
+           #     secretKeyRef:
+           #       name: {{ .Values.database.secretName }}
+           #       key: DATABASE_URL
           envFrom:
             - secretRef:
                 name: {{ .Values.database.secretName }}
