@@ -31,12 +31,18 @@ router.post("/users", async (req: Request, res: Response) => {
       [email]
     );
     res.status(201).json(result.rows[0]);
-  } catch (err) {
-    console.error("DB ERROR:", err);
-    res.status(500).json({
-      error: "db error",
-      details: (err as Error).message
-    });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error("DB insert error:", err.message);
+      res.status(500).json({
+        error: err.message
+      });
+    } else {
+      console.error("unknown DB error:", err)
+      res.status(500).json({
+        error: "unknown DB error"
+      });
+    }
   }
 });
 

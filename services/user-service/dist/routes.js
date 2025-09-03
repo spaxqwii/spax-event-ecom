@@ -32,10 +32,9 @@ router.post("/users", async (req, res) => {
         res.status(201).json(result.rows[0]);
     }
     catch (err) {
-        console.error("DB ERROR:", err);
+        console.error("DB insert error:", err.message);
         res.status(500).json({
-            error: "db error",
-            details: err.message
+            error: err.message
         });
     }
 });
