@@ -32,10 +32,9 @@ router.post("/users", async (req, res) => {
         res.status(201).json(result.rows[0]);
     }
     catch (err) {
-        const e = err;
-        console.error("DB insert error:", e.message);
-        // Check for duplicate email violation
-        if (e.code === "23505") {
+        console.error("DB insert error (raw):", err);
+        const pgErr = err;
+        if (pgErr && pgErr.code === "23505") {
             return res.status(409).json({ error: "email already exists" });
         }
         res.status(500).json({ error: "db error" });
