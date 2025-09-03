@@ -32,18 +32,13 @@ router.post("/users", async (req, res) => {
         res.status(201).json(result.rows[0]);
     }
     catch (err) {
-        if (err instanceof Error) {
-            console.error("DB insert error:", err.message);
-            res.status(500).json({
-                error: err.message
-            });
+        const e = err;
+        console.error("DB insert error:", e.message);
+        // Check for duplicate email violation
+        if (e.code === "23505") {
+            return res.status(409).json({ error: "email already exists" });
         }
-        else {
-            console.error("unknown DB error:", err);
-            res.status(500).json({
-                error: "unknown DB error"
-            });
-        }
+        res.status(500).json({ error: "db error" });
     }
 });
 exports.default = router;

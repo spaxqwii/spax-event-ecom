@@ -31,11 +31,12 @@ router.post("/users", async (req: Request, res: Response) => {
       [email]
     );
     res.status(201).json(result.rows[0]);
-  } catch (err: any) {
-    console.error("DB insert error:", err.message);
+  } catch (err) {
+    const e = err as { code?: string; message?: string };
+    console.error("DB insert error:", e.message);
 
     // Check for duplicate email violation
-    if (err.code === "23505") {
+    if (e.code === "23505") {
       return res.status(409).json({ error: "email already exists" });
     }
 
