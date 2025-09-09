@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: user-service-migrate
+  labels:
+    app: user-service
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: migrate
+          image: ghcr.io/{{ .Values.image.repository }}-migrate:{{ .Values.image.tag }}
+          command: ["npm", "run", "migrate:up"]
+          envFrom:
+            - secretRef:
+                name: {{ .Values.database.secretName }}

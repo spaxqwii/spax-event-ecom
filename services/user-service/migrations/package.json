@@ -1,0 +1,12 @@
+{
+  "name": "user-service-migrations",
+  "version": "0.1.0",
+  "scripts": {
+    "migrate": "node-pg-migrate up",
+    "migrate:down": "node-pg-migrate down"
+  },
+  "dependencies": {
+    "pg": "^8.11.1",
+    "node-pg-migrate": "^8.0.3"
+  }
+}
