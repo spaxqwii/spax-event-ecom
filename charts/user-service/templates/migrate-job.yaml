@@ -10,7 +10,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: migrate
-          image: ghcr.io/{{ .Values.image.repository }}-migrate:{{ .Values.image.tag }}
+          image: {{ .Values.image.repository }}-migrate:{{ .Values.image.tag }}
           command: ["npm", "run", "migrate:up"]
           envFrom:
             - secretRef:
