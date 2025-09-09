@@ -10,7 +10,9 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: migrate
-          image: {{ .Values.image.repository }}-migrate:{{ .Values.image.tag }}
+          image:
+            repository: {{ .Values.image.repository }}-migrate
+            tag: {{ .Values.image.tag }}
           command: ["npm", "run", "migrate:up"]
           envFrom:
             - secretRef:
