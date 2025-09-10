@@ -1,9 +1,10 @@
+{{- if or (.Values.migrateOnly) (not .Release.IsInstall) }}
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: user-service-migrate-{{ .Release.Revision }}
+  name: {{ include "user-service.fullname" . }}-migrate
   labels:
-    app: user-service
+    app: {{ include "user-service.name" . }}
 spec:
   template:
     spec:
@@ -11,8 +12,9 @@ spec:
       containers:
         - name: migrate
           image: "{{ .Values.migrate.image.repository }}:{{ .Values.migrate.image.tag }}"
-          imagePullPolicy: IfNotPresent
-          command: ["npm", "run", "migrate:up"]
+          imagePullPolicy: {{ .Values.migrate.image.pullPolicy }}
+          command: ["npx", "node-pg-migrate", "up"]
           envFrom:
             - secretRef:
                 name: {{ .Values.database.secretName }}
+{{- end }}

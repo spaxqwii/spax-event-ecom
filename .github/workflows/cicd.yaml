@@ -16,17 +16,20 @@ jobs:
       - name: Log in to GHCR
         run: echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Build & push service + migration image
+      - name: Build & Push Service Image
         run: |
           IMAGE=ghcr.io/${{ github.repository_owner }}/user-service
-          MIGRATE_IMAGE=${IMAGE}-migrate
           TAG=${{ github.sha }}
-
           docker build -t $IMAGE:$TAG ./services/user-service
           docker push $IMAGE:$TAG
-         
-          docker build -t $MIGRATE_IMAGE:$TAG ./services/user-service/migrations
-          docker push $MIGRATE_IMAGE:$TAG
+
+      - name: Build & Push Migration Image
+        run: |
+          IMAGE=ghcr.io/${{ github.repository_owner }}/user-service-migrate
+          TAG=${{ github.sha }}
+          docker build -f ./services/user-service/Dockerfile.migrate -t $IMAGE:$TAG ./services/user-service
+          docker push $IMAGE:$TAG
+
 
       - name: Install yq
         run: |
@@ -65,5 +68,10 @@ jobs:
 
       - name: Run DB migrations
         run: |
-          kubectl create job --from=cronjob/user-service-migrate \
-            user-service-migrate-$(date +%s) -n myapp || true
+          helm upgrade --install user-service charts/user-service \
+            -n myapp -f charts/user-service/values.yaml --set migrateOnly=true
+
+      - name: Deploy runtime service
+        run: |
+          helm upgrade --install user-service charts/user-service \
+            -n myapp -f charts/user-service/values.yaml --set migrateOnly=false

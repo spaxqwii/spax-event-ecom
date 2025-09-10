@@ -5,14 +5,18 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
   pullSecrets: ghcr-secret  #default name of the secret you created
+
 migrate:
   image:
     repository: ghcr.io/spaxqwii/user-service-migrate
     tag: latest
+    pullPolicy: IfNotPresent
+
 service:
   type: ClusterIP
   port: 8080
   targetPort: 8080
+
 database:
   host: postgres-postgresql.myapp.svc.cluster.local
   port: 5432
