@@ -1,10 +1,14 @@
 replicaCount: 1
 
 image:
-  repository: spaxqwii/user-service-migrate
+  repository: ghcr.io/spaxqwii/user-service
   tag: latest
   pullPolicy: IfNotPresent
   pullSecrets: ghcr-secret  #default name of the secret you created
+migrate:
+  image:
+    repository: ghcr.io/spaxqwii/user-service-migrate
+    tag: latest
 service:
   type: ClusterIP
   port: 8080
@@ -14,7 +18,7 @@ database:
   port: 5432
   name: users
   secretName: user-db-secret
-
+  
 readinessProbe:
   httpGet:
     path: /healthz
