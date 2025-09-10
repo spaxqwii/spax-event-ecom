@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ include "product-service.fullname" . }}
+  name: product-service
   namespace: argocd
 spec:
   project: default
@@ -9,10 +9,10 @@ spec:
     repoURL: 'https://github.com/spaxqwii/spax-event-ecom.git'
     targetRevision: master
     path: charts/product-service
-    helm:
+    helm: 
       releaseName: product-service
       valueFiles:
-        - values.yaml
+        - values.yaml 
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: myapp
