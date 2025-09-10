@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: spaxqwii/user-service
+  repository: spaxqwii/user-service-migrate
   tag: latest
   pullPolicy: IfNotPresent
   pullSecrets: ghcr-secret  #default name of the secret you created

@@ -11,7 +11,7 @@ spec:
       containers:
         - name: migrate
           image:
-            repository: {{ .Values.image.repository }}-migrate
+            repository: ghcr.io/{{ .Values.image.repository }}-migrate
             tag: {{ .Values.image.tag }}
           command: ["npm", "run", "migrate:up"]
           envFrom:

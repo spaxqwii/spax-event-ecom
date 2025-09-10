@@ -18,7 +18,7 @@ spec:
         - name: {{ .Values.imagePullSecrets | default "ghcr-secret" }}
       containers:
         - name: {{ include "user-service.name" . }}
-          image: ghcr.io/{{ .Values.image.repository }}:{{ .Values.image.tag }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.targetPort }}
