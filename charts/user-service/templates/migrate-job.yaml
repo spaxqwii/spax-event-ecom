@@ -12,7 +12,7 @@ spec:
         - name: migrate
           image: "{{ .Values.migrate.image.repository }}:{{ .Values.migrate.image.tag }}"
           imagePullPolicy: IfNotPresent
-          command: ["npm", "run", "migrate:up"]
+          command: ["npm", "run", "migrate"]
           envFrom:
             - secretRef:
                 name: {{ .Values.database.secretName }}
