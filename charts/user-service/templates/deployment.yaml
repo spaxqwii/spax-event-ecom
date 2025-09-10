@@ -18,7 +18,7 @@ spec:
         - name: {{ .Values.imagePullSecrets | default "ghcr-secret" }}
       containers:
         - name: {{ include "user-service.name" . }}
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          image: ghcr.io/{{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.targetPort }}
@@ -26,28 +26,7 @@ spec:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
-         # env:
-         #   - name: DB_HOST
-         #     value: {{ .Values.database.host | quote }}
-         #   - name: DB_PORT
-         #     value: {{ .Values.database.port | quote }}
-         #   - name: DB_USER
-         #     valueFrom:
-         #       secretKeyRef:
-         #         name: {{ .Values.database.secretName }}
-         #         key: DB_USER
-         #   - name: DB_PASSWORD
-         #     valueFrom:
-         #       secretKeyRef:
-         #         name: {{ .Values.database.secretName }}
-         #         key: DB_PASSWORD
-         #   - name: DB_NAME
-         #     value: {{ .Values.database.name | quote }}
-         # - name: DATABASE_URL
-         #   valueFrom:
-           #     secretKeyRef:
-           #       name: {{ .Values.database.secretName }}
-           #       key: DATABASE_URL
+         
           envFrom:
             - secretRef:
                 name: {{ .Values.database.secretName }}
