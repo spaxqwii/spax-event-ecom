@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "product-service.fullname" . }}
+  labels:
+    app: {{ include "product-service.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "product-service.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "product-service.name" . }}
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.image.pullSecrets }}
+      containers:
+        - name: {{ include "product-service.name" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.targetPort }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.database.secretName }}

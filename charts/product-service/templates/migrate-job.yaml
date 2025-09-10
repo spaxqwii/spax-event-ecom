@@ -1,0 +1,19 @@
+{{- if or (.Values.migrateOnly) (not .Release.IsInstall) }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "product-service.fullname" . }}-migrate
+  labels:
+    app: {{ include "product-service.name" . }}
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: migrate
+          image: "{{ .Values.migrate.image.repository }}:{{ .Values.migrate.image.tag }}"
+          command: ["npm", "run", "migrate:up"]
+          envFrom:
+            - secretRef:
+                name: {{ .Values.database.secretName }}
+{{- end }}
