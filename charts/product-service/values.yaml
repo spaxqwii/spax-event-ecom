@@ -11,10 +11,6 @@ service:
   port: 8080
   targetPort: 8080
 
-serviceAccount:
-  create: false
-  name: ""
-
 database:
   secretName: product-db-secret
 

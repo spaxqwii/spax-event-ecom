@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'services/user-service/**'
+      - 'charts/user-service/**'
 
 jobs:
   build-and-deploy:
