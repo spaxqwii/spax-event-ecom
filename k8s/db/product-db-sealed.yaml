@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: product-db-secret
+  namespace: myapp
+spec:
+  encryptedData:
+    DATABASE_URL: AgCbY3H8bRWS2oFx34C/DWBEsvxEFvZnxJCWtOAgPJ081krAM5thKZIlDT/hk88WW8meM0j8aeny2WXUmjbWxNd/KHUDc1U40JlLcm9Ik3g122a/YDzqtXKSuO9bgTwaM67+BxuoQ1hkCqlrMu80nBsVITLXN4oTNdlbAsFrOQ+GcZIQ73ehPQUgqvGl4wNY1bXxpIvfrWW47tN/wvCdtkqlqSxDeooqOK3fx/5TBf3CwyRhy/vVLLamH+raMrtQWIPmOws2RMerTVgSnfy2FPLuE/1xLwxliLTUUqCQBzAk9pRAHsY87649gMU4hLbza1iN1PNrp6WeCOKvPDDAWs7gZyytGtkpbdZtzSXvyui4eQ3amovalnY/Rocnk09NKHqmzn+KZl2rehv0VXJ7vGGqSQmzuA/m6sqocDUPCiuYEsz7d+nKNuEAT9y2lnCGsU3ug1gvHYd1rGYVsrElQnIOl2OD1ZTXPJ/mDZXYPMlkyjZMCrDIQIC9ud0qfIZ1+OAMREyDqjc3vesOE3tFBqPjFOqfS2TK16AfbXSxXWXR/dngfaCMf+EbcO1yUWto2cglNPgZl6YO4r80oUfztEa4GrQWYSf7UOXhugpaJLZWqJD2Xcip8BKEVqiV9qhJE0V1emM/CSYC/HCflnC2QtNqJqhBBj1M1WriEZ0eeOEDzL1sLrpqku+zznzb6/sDcAw8gLjcbKUXqlxmX9Z6LMgnTt7gCDjBGlvIyeg7oVkkg5ehQLmvaekpGeLK2kCirKDc+9zaLHEMkYQqxJVnHKcoTQ2o4X+Xfp1twYUjf+pDDwMFJFA/yZlA7CD1gzq4R303Je4Wvcxgs09H
+  template:
+    metadata:
+      creationTimestamp: null
+      name: product-db-secret
+      namespace: myapp
+---
