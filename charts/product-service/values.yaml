@@ -14,20 +14,6 @@ service:
 database:
   secretName: product-db-secret
 
-readinessProbe:
-  httpGet:
-    path: /healthz
-    port: 8080
-  initialDelaySeconds: 30
-  periodSeconds: 20
-
-livenessProbe:
-  httpGet:
-    path: /healthz
-    port: 8080
-  initialDelaySeconds: 90
-  periodSeconds: 40
-
 ingress:
   enabled: true
   ingressClassName: nginx
