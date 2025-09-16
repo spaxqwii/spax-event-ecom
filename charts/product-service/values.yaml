@@ -16,14 +16,14 @@ database:
 
 readinessProbe:
   httpGet:
-    path: /healthz
+    path: /
     port: 8080
   initialDelaySeconds: 20
   periodSeconds: 10
 
 livenessProbe:
   httpGet:
-    path: /healthz
+    path: /
     port: 8080
   initialDelaySeconds: 60
   periodSeconds: 20
