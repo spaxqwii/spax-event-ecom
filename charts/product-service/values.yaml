@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/spaxqwii/product-service
   tag: latest
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   pullSecrets: ghcr-secret
 
 service:
@@ -18,15 +18,15 @@ readinessProbe:
   httpGet:
     path: /
     port: 8080
-  initialDelaySeconds: 20
-  periodSeconds: 10
+  initialDelaySeconds: 30
+  periodSeconds: 20
 
 livenessProbe:
   httpGet:
     path: /
     port: 8080
-  initialDelaySeconds: 60
-  periodSeconds: 20
+  initialDelaySeconds: 90
+  periodSeconds: 40
 
 ingress:
   enabled: true

@@ -15,7 +15,7 @@ jobs:
       - name: Log in to GHCR
         run: echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Build and push image
+      - name: Build and push runtime image
         run: |
           IMAGE=ghcr.io/${{ github.repository_owner }}/product-service
           TAG=${{ github.sha }}
@@ -35,9 +35,10 @@ jobs:
           sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
           sudo chmod a+x /usr/local/bin/yq
 
-      - name: Update Helm values
+      - name: Update Helm values with new tags
         run: |
           yq e -i ".image.tag = \"${{ github.sha }}\"" charts/product-service/values.yaml
+          yq e -i ".migrateImage.tag = \"${{ github.sha }}\"" charts/product-service/values.yaml
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add charts/product-service/values.yaml
