@@ -41,20 +41,20 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add charts/product-service/values.yaml
-          git commit -m "product-service image: ${{ github.sha }}" || echo "no changes"
+          git commit -m "product-service + migrate image: ${{ github.sha }}" || echo "no changes"
           git push
 
       - name: Deploy with Helm
         run: |
           helm upgrade --install product-service charts/product-service \
             -n myapp -f charts/product-service/values.yaml
-            
+
       - name: Run DB migrations
         run: |
-          helm upgrade --install user-service charts/user-service \
-            -n myapp -f charts/user-service/values.yaml --set migrateOnly=true
+          helm upgrade --install product-service-migrate charts/product-service \
+            -n myapp -f charts/product-service/values.yaml --set migrateOnly=true
 
       - name: Deploy runtime service
         run: |
-          helm upgrade --install user-service charts/user-service \
-            -n myapp -f charts/user-service/values.yaml --set migrateOnly=false
+          helm upgrade --install product-service charts/product-service \
+            -n myapp -f charts/product-service/values.yaml --set migrateOnly=false

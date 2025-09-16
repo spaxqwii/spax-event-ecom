@@ -48,7 +48,7 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 
-migrate:
-  image:
+migrateImage:
     repository: ghcr.io/spaxqwii/product-service-migrate
     tag: latest
+    pullPolicy: IfNotPresent
