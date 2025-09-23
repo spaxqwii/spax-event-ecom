@@ -38,3 +38,6 @@ migrateImage:
     repository: ghcr.io/spaxqwii/product-service-migrate
     tag: latest
     pullPolicy: IfNotPresent
+env:
+  - name: USER_SERVICE_URL
+    Value: "http://user-service.myapp.svc.cluster.local:8080"

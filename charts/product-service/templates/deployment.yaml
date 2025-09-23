@@ -27,3 +27,4 @@ spec:
                 name: {{ .Values.database.secretName }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      

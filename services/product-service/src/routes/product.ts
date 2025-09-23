@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
-import pool from "./db";
+import pool from "../db";
+import { getUser } from "../services/userService";
 
 const router = Router();
 
@@ -11,16 +12,22 @@ router.get("/products", async (_, res: Response) => {
 
 // Add a product
 router.post("/products", async (req: Request, res: Response) => {
-  const { name, price } = req.body;
+  const { name, price, userId } = req.body;
   if (!name || !price) {
     return res.status(400).json({ error: "name and price required" });
   }
 
   try {
+    let user = null;
+    if (userId) {
+      user = await getUser(userId)
+    }
+
     const result = await pool.query(
       "INSERT INTO products(name, price) VALUES($1, $2) RETURNING *",
       [name, price]
     );
+    
     res.status(201).json(result.rows[0]);
   } catch (err: any) {
     console.error("DB insert error:", err.message);
