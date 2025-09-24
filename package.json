@@ -5,5 +5,23 @@
   },
   "dependencies": {
     "@prisma/client": "^6.15.0"
-  }
+  },
+  "name": "spax-event-ecom",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spaxqwii/spax-event-ecom.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spaxqwii/spax-event-ecom/issues"
+  },
+  "homepage": "https://github.com/spaxqwii/spax-event-ecom#readme",
+  "description": ""
 }
